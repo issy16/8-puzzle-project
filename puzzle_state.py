@@ -1,3 +1,4 @@
+
 class Node: # Represents a single state in the search space
     def __init__(self, state, parent, goal, operator=None, heuristic_type='none',level=0, puzzle_size=3):
         self.puzzle_size = puzzle_size
