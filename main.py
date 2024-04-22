@@ -1,12 +1,11 @@
-import PuzzleSolver
-
+from puzzle_process import PuzzleProcess
 
 def main():
     print("Welcome to the 8 puzzle solver.")
     choice = input("Type '1' to use a default puzzle, or '2' to enter your own puzzle: ")
     
     if choice == '1':
-        initial_state = [1, , 3, 4, 2, 6, 7, 5, 8]  # default puzzle 
+        initial_state = [1,0, 3, 4, 2, 6, 7, 5, 8]  # default puzzle 
     elif choice == '2':
         initial_state = []
         print("Enter your puzzle, use a zero to represent the blank")
@@ -30,9 +29,9 @@ def main():
         print("Invalid algorithm choice. Exiting.")
         return
     
-    solver = PuzzleSolver(algorithm, initial_state, goal_state=[1,2,3,4,5,6,7,8,0])
-    solution = solver.solve()
-    print(solution)  
+    #solver = puzzle_process(algorithm, initial_state, goal_state=[1,2,3,4,5,6,7,8,0])
+    #solution = solver.solve()
+   # print(solution)  
 
 
 main()
