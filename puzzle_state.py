@@ -34,8 +34,12 @@ class Node: # Represents a single state(node) in the search space(tree)
         """ Return a readable string representation of the node. """
         return 0
 
-class Tree: # Represents the search space
-    def __init__(self, root):
-        self.root = root
-        self.nodes = [root]
+    def expand(self):
+        """ Return a list of children nodes. """
+        children = []
+        new_state = self.state[:] 
+        child_node = Node(algo=self.algo, state=new_state, parent=self, level=self.level + 1, puzzle_size=self.puzzle_size)
+        children.append(child_node)
+        return children
+        
     
