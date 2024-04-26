@@ -15,6 +15,8 @@ def main():
         for i in range(3):  # a 3x3 puzzle
             row = input(f"Enter row {i+1}, use spaces between numbers: ")
             initial_state.extend(map(int, row.split()))
+        for i in range(0, 9, 3):
+            print(initial_state[i:i+3])
     else:
         print("Invalid choice. Exiting.")
         return
@@ -35,7 +37,7 @@ def main():
         print("Invalid algorithm choice. Exiting.")
         return
     
-    solver = Problem(initial_state, goal_state, puzzle_size, algorithm)
+    solver = Problem(puzzle_size, algorithm, initial_state, goal_state)
     solution = solver.solve()
 
 
