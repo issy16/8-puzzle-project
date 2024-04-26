@@ -1,21 +1,23 @@
 
-class Node: # Represents a single state in the search space
-    def __init__(self, state, parent, goal, operator=None, heuristic_type='none',level=0, puzzle_size=3):
+class Node: # Represents a single state(node) in the search space(tree)
+    def __init__(self, algo, state, parent,level=0, puzzle_size=3):
+        self.algo = algo
         self.puzzle_size = puzzle_size
         self.state = state
         self.parent = parent
-        self.goal = goal
-        self.operator = operator
-        self.heuristic_type = heuristic_type
-        self.cost = self.calculate_cost()
         self.level = level
-
-    def calculate_cost(self):  
+        self.cost = self.compute_cost()
+        
+    def __lt__(self, other):
+        """Define less than for Node to compare based on cost for heapq."""
+        return self.cost < other.cost
+    
+    def compute_cost(self):  
         """Calculate the total cost based on the chosen heuristic and level (depth). """
         heuristic_cost = 0
-        if self.heuristic_type == 'misplaced':
+        if self.algo == 'misplaced':
             heuristic_cost = self.misplaced_tiles()
-        elif self.heuristic_type == 'euclidean':
+        elif self.algo == 'euclidean':
             heuristic_cost = self.euclidean_distance()
 
         return self.level + heuristic_cost
