@@ -22,6 +22,10 @@ class Node: # Represents a single state(node) in the search space(tree)
 
         return self.level + heuristic_cost
     
+    def swap(self, i, j):
+        """ Swap elements at indices i and j in the state. """
+        self.state[i], self.state[j] = self.state[j], self.state[i]
+    
     def misplaced_tiles(self):
         """ Calculate the number of misplaced tiles excluding the blank space (0). """
         return 0
