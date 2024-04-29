@@ -23,24 +23,51 @@ class Node: # Represents a single state(node) in the search space(tree)
         return self.level + heuristic_cost
     
     def misplaced_tiles(self):
-        """ Calculate the number of misplaced tiles excluding the blank space (0). """
+        """ Calculate the number of misplaced tiles excluding the blank space (0) """
         return 0
 
     def euclidean_distance(self):
-        """ Calculate the Euclidean distance of the tiles from their goal positions. """
+        """ Calculate the Euclidean distance of the tiles from their goal positions """
         return 0
     
     def __str__(self):
-        """ Return a readable string representation of the node. """
+        """ Return a string representation of the node's state"""
         return 0
 
+    def _swap_positions(self, idx1, idx2):
+        """Swap two positions in the state and return the new state."""
+        new_state = list(self.state)
+        new_state[idx1], new_state[idx2] = new_state[idx2], new_state[idx1]
+        return new_state
+    
     def expand(self):
-        """ Return a list of children nodes. """
-        # Dummy children 
+        """ Return a list of children nodes """
         children = []
-        new_state = self.state[:] 
-        child_node = Node(algo=self.algo, state=new_state, parent=self, level=self.level + 1, puzzle_size=self.puzzle_size)
-        children.append(child_node)
+        empty_idx = self.state.index(0)  # Find the index of the empty space (0)
+        row, col = divmod(empty_idx, self.puzzle_size)
+        
+        """ Helper to swap positions in the state """
+        def swap_(idx1, idx2):
+            new_state = list(self.state)
+            new_state[idx1], new_state[idx2] = new_state[idx2], new_state[idx1]
+            return new_state
+        
+        moves = []
+        """ Define valide conditions and move """
+        if(col > 0):
+            moves.append(empty_idx - 1) # move left
+        if(col < self.puzzle_size - 1):
+            moves.append(empty_idx + 1) # move right
+        if(row > 0):
+            moves.append(empty_idx - self.puzzle_size) # move up
+        if(row < self.puzzle_size - 1):
+            moves.append(empty_idx + self.puzzle_size) # move down
+        
+        for move in moves:
+            new_state = self._swap_positions(empty_idx, move)
+            child_node = Node(algo=self.algo, state=new_state, parent=self, level=self.level + 1, puzzle_size=self.puzzle_size)
+            children.append(child_node)
+  
         return children
         
     
