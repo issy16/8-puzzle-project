@@ -36,6 +36,7 @@ class Node: # Represents a single state(node) in the search space(tree)
 
     def expand(self):
         """ Return a list of children nodes. """
+        # Dummy children 
         children = []
         new_state = self.state[:] 
         child_node = Node(algo=self.algo, state=new_state, parent=self, level=self.level + 1, puzzle_size=self.puzzle_size)

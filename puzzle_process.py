@@ -11,11 +11,20 @@ class Problem:
         self.frontier = Frontier()
 
     def is_unsolvable(self):
-      
-        return False
+        """The puzzle is solvable if the number of inversions is even."""
+        inversion = 0
+        state = self.initial_state
+        
+        for i in range(len(state)):
+            for j in range(i + 1, len(state)):
+                if state[i] > state[j] and state[i] != 0 and state[j] != 0:
+                    inversion += 1
 
+        return inversion % 2 != 0
+ 
     def solve(self):
-        if self.is_unsolvable():
+        """Check if the problem is solvable"""
+        if self.is_unsolvable(): 
             print("This puzzle is unsolvable.")
             return None
         
