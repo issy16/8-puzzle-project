@@ -28,7 +28,7 @@ class Problem:
             print("This puzzle is unsolvable.")
             return None
         
-        root_node = Node(algo=self.algorithm, state=self.initial_state, parent=None, level=0, puzzle_size = self.puzzle_size)
+        root_node = Node(algo=self.algorithm, state=self.initial_state, goal_state=self.goal_state, parent=None, level=0, puzzle_size = self.puzzle_size)
         self.frontier.insert(root_node)              # Initialize the frontier using the initial state of problem
         explored = set()                             # Initialize the explored set to be empty
         
@@ -36,6 +36,7 @@ class Problem:
             current_node = self.frontier.pop()       # Choose a leaf node and remove it from the frontier 
             if(self.goal_state==current_node.state): # If the node contains a goal state then return the solution
                 print("Find it!")
+                current_node.print_path()
                 return current_node
             explored.add(tuple(current_node.state))  # Add the node to the explored set
             children = current_node.expand()         # Expand the chosen node
