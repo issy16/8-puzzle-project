@@ -4,11 +4,15 @@ class Frontier:
     def __init__(self):
         self.heap = []
         self.states = set()  
+        self.current_max_size = 0 # Tracker for the maximum size
 
     def insert(self, node):
         """Add a new node or update the priority of an existing node."""
         heapq.heappush(self.heap, node)
         self.states.add(tuple(node.state))
+        
+        if len(self.heap) > self.current_max_size:
+            self.current_max_size = len(self.heap)
 
     def pop(self):
         """Remove and return the lowest cost node from the heap."""
@@ -23,3 +27,6 @@ class Frontier:
     def contains_state(self, state):
         """Check if a specific state is in the frontier."""
         return tuple(state) in self.states
+    
+    def get_max_size(self):
+        return self.current_max_size

@@ -9,6 +9,7 @@ class Problem:
         self.puzzle_size = puzzle_size
         self.algorithm = algorithm
         self.frontier = Frontier()
+        self.node_expanded_count = 0
 
     def is_unsolvable(self):
         """The puzzle is solvable if the number of inversions is even."""
@@ -37,11 +38,12 @@ class Problem:
             if(self.goal_state==current_node.state): # If the node contains a goal state then return the solution
                 print("Find it!")
                 current_node.print_path()
+                print(f"Total nodes expanded:{self.node_expanded_count}")
                 return current_node
             explored.add(tuple(current_node.state))  # Add the node to the explored set
             children = current_node.expand()         # Expand the chosen node
-                                                        # Adding the result nodes to the frontier only if not in
-            for child in children:                      # the frontier or explored set
+            self.node_expanded_count +=1               # Adding the result nodes to the frontier only if not in
+            for child in children:                     # the frontier or explored set
                 if tuple(child.state) not in explored and not self.frontier.contains_state(child.state):
                     self.frontier.insert(child)        
         
