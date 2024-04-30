@@ -28,5 +28,8 @@ class Frontier:
         """Check if a specific state is in the frontier."""
         return tuple(state) in self.states
     
-    def get_max_size(self):
+    def max_queue_size(self):
         return self.current_max_size
+    
+    def is_empty(self):
+        return len(self.heap) == 0
